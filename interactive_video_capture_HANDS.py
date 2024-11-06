@@ -8,6 +8,12 @@ from datetime import datetime
 import mediapipe as mp
 from tqdm import tqdm
 
+# setup parameters
+camera_1 = 0
+camera_2 = 1
+ip_address = "127.0.0.1"
+port =  8000
+
 def create_gif(frames, output_path):
     """Converte una lista di frame in una GIF ad alta qualità."""
     pil_frames = []
@@ -186,18 +192,18 @@ def add_status_overlay(frame, detector, is_acquiring):
 
 def init_camera():
     """Inizializza e configura la webcam."""
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(camera_1)
     cap.set(cv2.CAP_PROP_EXPOSURE, -2)
     cap.set(cv2.CAP_PROP_GAIN, 1)
     return cap
 
 def main():
     print("Inizializzazione del sistema...")
-    osc_client = udp_client.SimpleUDPClient("127.0.0.1", 8000)
+    osc_client = udp_client.SimpleUDPClient("127.0.0.1",8000)
     
     print("Apertura della webcam principale...")
     cap1 = init_camera()
-    osc_client.send_message("/sequences/seq1/play", 1)
+    osc_client.send_message("/sequences/Seq 1/play", 1)
     
     window_name = 'Rilevamento Mano Aperta'
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -219,7 +225,7 @@ def main():
         if cap1 is None or not cap1.isOpened():
             print("Riapertura della webcam principale...")
             cap1 = init_camera()
-            osc_client.send_message("/sequences/seq1/play", 1)
+            osc_client.send_message("/sequences/Seq 1/play", 1)
             if not cap1.isOpened():
                 print("Errore nella riapertura della webcam")
                 break
@@ -239,7 +245,7 @@ def main():
                 is_acquiring = True
                 hand_detector.status = "ACQUISIZIONE IN CORSO"
                 
-                osc_client.send_message("/sequences/seq2/play", 1)
+                osc_client.send_message("/sequences/Seq 2/play", 1)
                 
                 # print("Attesa iniziale...")
                 # for _ in tqdm(range(40), desc="Preparazione acquisizione", unit="decisec"):
@@ -250,8 +256,8 @@ def main():
                 cap1 = None
 
                 print("Apertura camera 2...")
-                cap2 = cv2.VideoCapture(0)
-                osc_client.send_message("/sequences/seq3/play", 1)
+                cap2 = cv2.VideoCapture(camera_2)
+                osc_client.send_message("/sequences/Seq 3/play", 1)
 
                 frames = []
                 start_time = time.time()
@@ -271,7 +277,7 @@ def main():
                 create_gif(frames, gif_path)
                 print(f"GIF salvata: {gif_path}")
                 
-                osc_client.send_message("/sequences/seq4/play", 1)
+                osc_client.send_message("/sequences/Seq 4/play", 1)
                 
                 # print("Attesa prima del prossimo rilevamento...")
                 # for _ in tqdm(range(50), desc="Cooldown", unit="decisec"):
