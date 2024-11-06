@@ -9,7 +9,7 @@ import mediapipe as mp
 from tqdm import tqdm
 
 # setup parameters
-camera_1 = 0
+camera_1 = 1
 camera_2 = 1
 ip_address = "127.0.0.1"
 port =  8000
@@ -199,7 +199,7 @@ def init_camera():
 
 def main():
     print("Inizializzazione del sistema...")
-    osc_client = udp_client.SimpleUDPClient("127.0.0.1",8000)
+    osc_client = udp_client.SimpleUDPClient(ip_address,port)
     
     print("Apertura della webcam principale...")
     cap1 = init_camera()
@@ -274,10 +274,10 @@ def main():
                 
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 gif_path = os.path.join(output_folder, f"captured_{timestamp}.gif")
+                osc_client.send_message("/sequences/Seq 4/play", 1)
                 create_gif(frames, gif_path)
                 print(f"GIF salvata: {gif_path}")
                 
-                osc_client.send_message("/sequences/Seq 4/play", 1)
                 
                 # print("Attesa prima del prossimo rilevamento...")
                 # for _ in tqdm(range(50), desc="Cooldown", unit="decisec"):
