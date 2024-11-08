@@ -9,8 +9,8 @@ import mediapipe as mp
 from tqdm import tqdm
 
 # setup parameters
-camera_1 = 1
-camera_2 = 1
+camera_1 = 0 # for hands recognition
+camera_2 = 0 # for capture the GIF
 ip_address = "127.0.0.1"
 port =  8000
 
