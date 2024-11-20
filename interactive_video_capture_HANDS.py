@@ -211,9 +211,10 @@ def main():
     
     hand_detector = HandDetector()
     
-    output_folder = "captured_gifs"
+    output_folder = "//roland/Public/GIF"
     if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
+        #os.makedirs(output_folder)
+        print(f"{output_folder} INESISTENTE")
     
     print("Sistema avviato. Premi 'q' per uscire.")
     print("In attesa del rilevamento della mano...")
