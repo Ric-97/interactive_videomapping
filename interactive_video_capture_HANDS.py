@@ -8,6 +8,14 @@ from datetime import datetime
 import mediapipe as mp
 from tqdm import tqdm
 
+########################
+# Sequence description #
+# Seq 1 --> richiamo attenzione su posizione per foto, possibilità di usare effetti e playlist video per aumentare varietà contenuti
+# Seq 2 --> info mano rilevata, avvio sistema di cattura GIF, countdown per messa in posa
+# Seq 3 --> illuminazione e registrazione GIF
+# Seq 4 --> output registrazione avvenuta, info di chiusura 
+
+
 # setup parameters
 camera_1 = 0 # for hands recognition
 camera_2 = 0 # for capture the GIF
