@@ -13,8 +13,8 @@ from tqdm import tqdm
 # Seq 1 --> richiamo attenzione su posizione per foto, possibilità di usare effetti e playlist video per aumentare varietà contenuti
 # Seq 2 --> info mano rilevata, avvio sistema di cattura GIF, countdown per messa in posa
 # Seq 3 --> illuminazione e registrazione GIF
-# Seq 4 --> output registrazione avvenuta, info di chiusura 
-
+# Seq 4 --> output registrazione avvenuta, info di chiusura
+# Send visual effects on 2 video output: 1 for projector and 1 for digital screen
 
 # setup parameters
 camera_1 = 0 # for hands recognition
